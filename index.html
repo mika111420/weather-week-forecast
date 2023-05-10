@@ -20,28 +20,35 @@
     </section>
 
     <main>
-        <section class="search">
+        <section class="section">
             <div class="container">
-                <div class="column is-4">
-                    <p class="title is-3">Search for a City!</p>
-                    <form id="searchForm">
-                        <input class="input is-primary is rounded" type="text" id="inputCity"
-                            placeholder="please enter a city">
-                        <input class="button is-normal is-primary is-rounded" type="submit" value="Search"></input>
-                    </form>
+                <div class="columns">
+                    <div class="column is-half">
+                        <div class="box">
+                            <p class="title is-3">Search for a City!</p>
+                            <form id="searchForm">
+                                <input class="input is-primary is-rounded mb-4" type="text" id="inputCity"
+                                    placeholder="Please enter a city">
+                                <input class="button is-normal is-primary is-rounded" type="submit" value="Search">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div id="currentWeather" class="box">
+                            <h2 class="title">Current Weather</h2>
+                            <div id="cityName"></div>
+                            <div id="date"></div>
+                            <div id="weatherIcon"></div>
+                            <div id="temperature"></div>
+                            <div id="humidity"></div>
+                            <div id="windSpeed"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+        
 
-        <div id="currentWeather">
-            <h2>Current Weather</h2>
-            <div id="cityName"></div>
-            <div id="date"></div>
-            <div id="weatherIcon"></div>
-            <div id="temperature"></div>
-            <div id="humidity"></div>
-            <div id="windSpeed"></div>
-        </div>
 
         <div id="dayForecast">
             <h2>5-Day Forecast</h2>
