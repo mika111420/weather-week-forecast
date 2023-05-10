@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,16 +9,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header>
-        <h1 class="title is-2">Weather Dashboard</h1>
-    </header>
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <header class="container has-text-centered">
+                <h1 class="title is-2">Weather Dashboard</h1>
+            </header>
+        </div>
+    </section>
 
     <main>
-        <form id="searchForm">
-            <input type="text" id="inputCity" placeholder="please enter a city">
-            <button type="submit">Search!</button>
-        </form>
+        <section class="search">
+            <div class="container">
+                <div class="column is-4">
+                    <p class="title is-3">Search for a City!</p>
+                    <form id="searchForm">
+                        <input class="input is-primary is rounded" type="text" id="inputCity"
+                            placeholder="please enter a city">
+                        <input class="button is-normal is-primary is-rounded" type="submit" value="Search"></input>
+                    </form>
+                </div>
+            </div>
+        </section>
 
         <div id="currentWeather">
             <h2>Current Weather</h2>
