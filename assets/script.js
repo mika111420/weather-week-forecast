@@ -21,3 +21,28 @@ searchForm.addEventListener('submit', function(event){
         inputCity.value = '';
     }
 });
+
+function displayForecast(dayForecast) {
+    forecastCards.innerHTML = '';
+    for(let day of forecast) {
+        var card = document.createElement('div');
+        card.classList.add('forecast-card');
+        const date = document.createElement('div');
+        date.textContent = day.date;
+        card.appendChild(date);
+
+        var temperature = document.createElement('div');
+        temperature.textContent = `Temperature: ${day.temperature}`;
+        card.appendChild(temperature);
+
+        const windSpeed = document.createElement('div');
+        windSpeed.textContent = `Wind Speed: ${day.windSpeed}`;
+        card.appendChild(windSpeed);
+
+        const humidity = document.createElement('div');
+        humidity.textContent = `Humidity: ${day.humidity}`;
+        card.appendChild(humidity);
+
+        forecastCards.appendChild(card);
+    }
+}
