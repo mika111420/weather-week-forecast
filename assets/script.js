@@ -14,54 +14,75 @@ var forecastCards = document.getElementById('forecastCards');
 var historyList = document.getElementById('historyList');
 
 function getWeather(city) {
-var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
-fetch(queryURL)
-    .then(function(response){
-        return response.json();
-    })
-    .then(function (data) {
-        displayCurrentWeather(data);
-      })
+    fetch(queryURL)
+        .then(function (response) {
+            // not sure what to post and where to post within html 
+            return response.json();
+        })
+        .then(function (data) {
+            var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${data.coord.lat}&lon=${data.coord.lon}&appid=${apiKey}`
+            fetch(forecastURL)
+                .then(forecast => forecast.json())
+                .then(forecastData => {
+                    displayCurrentWeather(data, forecastData);
+                })
+        })
 };
 
-searchForm.addEventListener('submit', function(event){
+searchForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    var city = inputCity.value();
+    var city = inputCity.value;
     if (city) {
         getWeather(city);
         inputCity.value = '';
+        addSearchHistory(city)
     }
 });
 
-function displayForecast(dayForecast) {
+function displayCurrentWeather(currentDay, fiveDayForecast) {
+console.log(currentDay)
+
+
+    // -------------
+    const day = fiveDayForecast.list
+    
     forecastCards.innerHTML = '';
-    for(let day of forecast) {
-        var card = document.createElement('div');
-        card.classList.add('forecast-card');
-        const date = document.createElement('div');
-        date.textContent = day.date;
-        card.appendChild(date);
+    let count = 0
+    for (i = 0; i < day.length; i++) {
+        if (day[i].dt_txt.split(' ')[1] == "12:00:00") {
+            if(count == 5){
+                break;
+            }
+            var card = document.createElement('div');
+            card.classList.add('forecast-card');
 
-        var temperature = document.createElement('div');
-        temperature.textContent = `Temperature: ${day.temperature}`;
-        card.appendChild(temperature);
+            const date = document.createElement('div');
+            date.textContent = day[i].dt_txt;
+            card.appendChild(date);
 
-        var windSpeed = document.createElement('div');
-        windSpeed.textContent = `Wind Speed: ${day.windSpeed}`;
-        card.appendChild(windSpeed);
+            var temperature = document.createElement('div');
+            temperature.textContent = `Temperature: ${day[i].main.temp}`;
+            card.appendChild(temperature);
 
-        var humidity = document.createElement('div');
-        humidity.textContent = `Humidity: ${day.humidity}`;
-        card.appendChild(humidity);
+            var windSpeed = document.createElement('div');
+            windSpeed.textContent = `Wind Speed: ${day[i].wind.speed}`;
+            card.appendChild(windSpeed);
 
-        forecastCards.appendChild(card);
+            var humidity = document.createElement('div');
+            humidity.textContent = `Humidity: ${day[i].main.humidity}`;
+            card.appendChild(humidity);
+
+            forecastCards.appendChild(card);
+            count++
+        }
+
     }
 }
 
-function addSearchHistory (city) {
+function addSearchHistory(city) {
     var historyCity = document.createElement('li');
     historyCity.textContent = city;
     historyList.appendChild(historyCity);
 }
-
