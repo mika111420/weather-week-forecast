@@ -7,18 +7,19 @@ var cityName = document.getElementById('cityName');
 var date = document.getElementById('date');
 var weatherIcon = document.getElementById('weatherIcon');
 var temperature = document.getElementById('temperature');
-var humidity = document.getElementById('humidity');
-var windSpeed = document.getElementById('windSpeed');
+// console.log(temperature);
+
 
 var forecastCards = document.getElementById('forecastCards');
 var historyList = document.getElementById('historyList');
 
 function getWeather(city) {
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
-
+console.log(queryURL)
     fetch(queryURL)
         .then(function (response) {
-            // not sure what to post and where to post within html 
+            console.log(response)
+        
             return response.json();
         })
         .then(function (data) {
@@ -42,7 +43,14 @@ searchForm.addEventListener('submit', function (event) {
 });
 
 function displayCurrentWeather(currentDay, fiveDayForecast) {
-console.log(currentDay)
+console.log(currentDay);
+
+var temperature = document.getElementById('temperature');
+var humidity = document.getElementById('humidity');
+var windSpeed = document.getElementById('windSpeed');
+temperature.innerHTML = currentDay.main.temp
+windSpeed.innerHTML = currentDay.wind.speed
+humidity.innerHTML = currentDay.main.humidity
 
 
     // -------------
